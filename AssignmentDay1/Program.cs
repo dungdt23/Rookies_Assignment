@@ -104,23 +104,24 @@ public class Program
         List<Student> students = input.GetAllStudents();
 
         //1. Return a list of members who is male
-        display.DisplayListStudents("TASK1. List of members who is Male: ", GetMaleStudents(students));
+        display.DisplayListStudents("TASK 1: List of members who is Male: ", GetMaleStudents(students));
 
         //2. Return the oldest 
-        display.DisplayStudent("TASK2. The oldest student is : ", GetOldestStudent(students));
+        display.DisplayStudent("TASK 2: The oldest student is : ", GetOldestStudent(students));
+        display.InsertLineBreak(3);
 
         //3. Return list contains only full name
-        display.DisplayStrings("TASK3. List Full Name is :", GetFullNames(students));
+        display.DisplayStrings("TASK 3: List Full Name is :", GetFullNames(students));
 
         //4. Return 3 list of members who has birth year is 2000, greater than 2000, less than 2000
         //variable to express condition of students birth years
         int equal = 0; int greater = 1; int less = -1;
-        display.DisplayListStudents("TASK4. List of members who has birth year is 2000 :", GetStudentsBaseOnAge(students, equal));
-        display.DisplayListStudents("TASK4. List of members who has birth year is greater than 2000 :", GetStudentsBaseOnAge(students, greater));
-        display.DisplayListStudents("TASK4. List of members who has birth year is less than 2000 ", GetStudentsBaseOnAge(students, less));
+        display.DisplayListStudents("TASK 4.1: List of members who has birth year is 2000 :", GetStudentsBaseOnAge(students, equal));
+        display.DisplayListStudents("TASK 4.2: List of members who has birth year is greater than 2000 :", GetStudentsBaseOnAge(students, greater));
+        display.DisplayListStudents("TASK 4.3: List of members who has birth year is less than 2000 ", GetStudentsBaseOnAge(students, less));
 
         //5. Return first person who was born in Ha Noi
-        display.DisplayStudent("TASK5. First person who was born in Ha Noi is: ", GetFirstHaNoiStudents(students));
+        display.DisplayStudent("TASK 5: First person who was born in Ha Noi is: ", GetFirstHaNoiStudents(students));
 
     }
 }

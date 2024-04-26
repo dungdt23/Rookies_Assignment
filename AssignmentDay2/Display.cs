@@ -36,6 +36,7 @@ namespace AssignmentDay1
                 DisplayStudent(null, s);
             }
             InsertLineBreak(3);
+
         }
         public void DisplayStrings(string sentence, List<string> fullNames)
         {
@@ -46,13 +47,27 @@ namespace AssignmentDay1
                 count++;
                 Console.WriteLine(count + " " + s);
             }
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
+            InsertLineBreak(3);
+        }
+        public void DisplayNumbers(string sentence, List<int> numbers)
+        {
+            Console.WriteLine(sentence);
+            for (int i = 0; i < numbers.Count; i++)
+            {
+                if (i == numbers.Count - 1)
+                {
+                    Console.WriteLine(numbers[i]);
+                }
+                else
+                {
+                    Console.Write(numbers[i] + " ,");
+                }
+            }
         }
         public void InsertLineBreak(int num)
         {
             for (int i = 0; i < num; i++) Console.WriteLine();
         }
+
     }
 }
