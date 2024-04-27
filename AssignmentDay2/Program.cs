@@ -78,11 +78,11 @@ public class Program
 
         //TASK 6. Return prime numbers from 0 to 100
         PrimeNumber primeNumber = new PrimeNumber();
-
+        bool isDelay = true;
         //example for sync find prime numbers
         var syncWatch = new Stopwatch();
         syncWatch.Start();
-        List<int> syncPrimeNumbers = await primeNumber.GetPrimeNumbers(0, 100, false);
+        List<int> syncPrimeNumbers = await primeNumber.GetPrimeNumbers(0, 100, !isDelay);
         Console.WriteLine("TASK 6.1: Synchronized find prime number cost " + syncWatch.Elapsed);
         display.DisplayNumbers("TASK 6.1: Get Sync Prime Numbers List :", syncPrimeNumbers);
         display.InsertLineBreak(3);
@@ -92,10 +92,10 @@ public class Program
         //example for async find prime numbers
         var asyncWatch = new Stopwatch();
         asyncWatch.Start();
-        var asyncPrimeNumbers1 = primeNumber.GetPrimeNumbers(0, 25, false);
-        var asyncPrimeNumbers2 = primeNumber.GetPrimeNumbers(26, 50, false);
-        var asyncPrimeNumbers3 = primeNumber.GetPrimeNumbers(51, 75, false);
-        var asyncPrimeNumbers4 = primeNumber.GetPrimeNumbers(76, 100, false);
+        var asyncPrimeNumbers1 = primeNumber.GetPrimeNumbers(0, 25, !isDelay);
+        var asyncPrimeNumbers2 = primeNumber.GetPrimeNumbers(26, 50, !isDelay);
+        var asyncPrimeNumbers3 = primeNumber.GetPrimeNumbers(51, 75, !isDelay);
+        var asyncPrimeNumbers4 = primeNumber.GetPrimeNumbers(76, 100, !isDelay);
         await Task.WhenAll(asyncPrimeNumbers1, asyncPrimeNumbers2, asyncPrimeNumbers3, asyncPrimeNumbers4);
         Console.WriteLine("TASK 6.2: Asynchronized find prime number cost " + asyncWatch.Elapsed);
         List<int> primeNumbers1 = asyncPrimeNumbers1.Result;
@@ -113,7 +113,7 @@ public class Program
 
         //example for delay 5 seconds find prime numbers
         Console.WriteLine("TASK 6.3: Process of find prime numbers will delay 5 seconds...");
-        List<int> delayPrimeNumbers = await primeNumber.GetPrimeNumbers(0, 100, true);
+        List<int> delayPrimeNumbers = await primeNumber.GetPrimeNumbers(0, 100, isDelay);
         display.DisplayNumbers("TASK 6.3: Get Delayed Prime Numbers List :", delayPrimeNumbers);
 
     }
