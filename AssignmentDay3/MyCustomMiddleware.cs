@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Http;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace AssignmentDay3
@@ -8,21 +9,37 @@ namespace AssignmentDay3
     public class MyCustomMiddleware
     {
         private readonly RequestDelegate _next;
+        private readonly IWebHostEnvironment _webEnvironment;
 
-        public MyCustomMiddleware(RequestDelegate next)
+        public MyCustomMiddleware(RequestDelegate next, IWebHostEnvironment webEnvironment)
         {
             _next = next;
+            _webEnvironment = webEnvironment;
         }
 
-        public Task Invoke(HttpContext httpContext, IMessageWriter messageWriter)
+        public async Task InvokeAsync(HttpContext httpContext, IMessageWriter messageWriter)
         {
-            messageWriter.Write("Date Time: " + DateTime.Now.ToString());
-            messageWriter.Write("Scheme: " + httpContext.Request.Scheme);
-            messageWriter.Write("Host: " + httpContext.Request.Host.ToString());
-            messageWriter.Write("Path: " + httpContext.Request.Path);
-            messageWriter.Write("Request Header: " + httpContext.Request.Headers);
-            messageWriter.Write("Query String: " + httpContext.Request.QueryString.ToString());
-            return _next(httpContext);
+            string directoryPath = _webEnvironment.ContentRootPath;
+            string schema = httpContext.Request.Scheme;
+            string host = httpContext.Request.Host.ToString();
+            string path = httpContext.Request.Path;
+            string queryString = httpContext.Request.QueryString.ToString();
+            string requestBody = await ReadRequestBody(httpContext.Request);
+
+            string logMessage = $"{DateTime.Now}: Schema={schema}, Host={host}, Path={path}, QueryString={queryString}, RequestBody={requestBody}\n";
+            //write into log file
+            messageWriter.WriteLog(logMessage, directoryPath);
+            //log in ouput
+            messageWriter.Log(logMessage);
+            await _next(httpContext);
+        }
+        private async Task<string> ReadRequestBody(HttpRequest request)
+        {
+            using (StreamReader reader = new StreamReader(request.Body, Encoding.UTF8, true, 1024, true))
+            {
+                string body = await reader.ReadToEndAsync();
+                return body;
+            }
         }
     }
 

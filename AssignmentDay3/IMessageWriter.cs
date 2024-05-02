@@ -2,6 +2,7 @@
 {
     public interface IMessageWriter
     {
-        void Write(string message);
+        void WriteLog(string message,string filePath);
+        void Log(string message);
     }
 }
