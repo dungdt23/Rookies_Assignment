@@ -46,7 +46,7 @@ public class Program
 
 
         //TASK 2. Return the oldest 
-        display.DisplayStudent("TASK 2: The oldest student is : ", GetOldestStudent(students)); 
+        display.DisplayStudent("TASK 2: The oldest student is : ", GetOldestStudent(students));
         display.InsertLineBreak(3);
 
 
