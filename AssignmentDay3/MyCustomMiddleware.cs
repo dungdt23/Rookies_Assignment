@@ -46,7 +46,7 @@ namespace AssignmentDay3
                 requestBody = await reader.ReadToEndAsync();
             }
 
-            // Reset the position of the request body stream to allow reading it again in subsequent steps
+            // Reset the position of the request body stream
             request.Body.Position = 0;
 
             return requestBody;
