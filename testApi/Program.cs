@@ -1,14 +1,14 @@
-using AssignmentDay3;
-
 var builder = WebApplication.CreateBuilder(args);
-builder.Services.AddScoped<IMessageWriter, LoggingMessageWriter>();
-//configure for swagger 
-builder.Services.AddControllers();
 
+// Add services to the container.
+
+builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 var app = builder.Build();
+
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
@@ -16,9 +16,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.MapGet("/api/", () => "Hello World!");
-
-app.UseMyCustomMiddleware();
+app.UseAuthorization();
 
 app.MapControllers();
 

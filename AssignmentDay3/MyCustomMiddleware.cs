@@ -19,6 +19,7 @@ namespace AssignmentDay3
 
         public async Task InvokeAsync(HttpContext httpContext, IMessageWriter messageWriter)
         {
+            //get root path of recent project
             string directoryPath = _webEnvironment.ContentRootPath;
             string schema = httpContext.Request.Scheme;
             string host = httpContext.Request.Host.ToString();
@@ -35,11 +36,21 @@ namespace AssignmentDay3
         }
         private async Task<string> ReadRequestBody(HttpRequest request)
         {
+            string requestBody = string.Empty;
+
+            // allow request can be read multiple times
+            request.EnableBuffering();
+
             using (StreamReader reader = new StreamReader(request.Body, Encoding.UTF8, true, 1024, true))
             {
-                string body = await reader.ReadToEndAsync();
-                return body;
+                requestBody = await reader.ReadToEndAsync();
             }
+
+            // Reset the position of the request body stream to allow reading it again in subsequent steps
+            request.Body.Position = 0;
+
+            return requestBody;
+
         }
     }
 
